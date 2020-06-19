@@ -1,7 +1,12 @@
 import React from 'react';
+import CardItem from 'components/CardItem';
 
 const App = () => {
-  return <div>Initial Setup Complete</div>;
+  return (
+    <div>
+      <CardItem />
+    </div>
+  );
 };
 
 export default App;
