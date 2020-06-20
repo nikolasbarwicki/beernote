@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  Card,
-  Icon,
-  List,
-  Flag,
-  Grid,
-  Rating,
-  Button,
-} from 'semantic-ui-react';
+import { Card, Icon, List, Flag, Grid, Rating } from 'semantic-ui-react';
+import ConfirmModal from 'components/ConfirmModal';
+import ModalModalExample from 'components/Modal';
 
 const CardItem = () => (
   <Card>
@@ -86,8 +80,8 @@ const CardItem = () => (
     </Card.Content>
     <Card.Content extra>
       <div className="ui two buttons">
-        <Button>Edit</Button>
-        <Button color="red">Delete</Button>
+        <ModalModalExample edit />
+        <ConfirmModal />
       </div>
     </Card.Content>
   </Card>
