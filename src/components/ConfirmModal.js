@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Confirm } from 'semantic-ui-react';
 
-class ConfirmExampleConfirm extends Component {
+class ConfirmModal extends Component {
   state = { open: false };
 
   open = () => this.setState({ open: true });
@@ -28,4 +28,4 @@ class ConfirmExampleConfirm extends Component {
   }
 }
 
-export default ConfirmExampleConfirm;
+export default ConfirmModal;

@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dropdown from 'components/Dropdown';
 import Rating from 'components/Rating';
-import { Button, Modal, Form } from 'semantic-ui-react';
+import { Button, Modal as ModalComponent, Form } from 'semantic-ui-react';
 
-class PrimaryModal extends Component {
+class Modal extends Component {
   state = { open: false };
 
   show = (dimmer) => () => this.setState({ dimmer, open: true });
@@ -22,9 +22,16 @@ class PrimaryModal extends Component {
           {edit ? 'Edit' : 'Add new'}
         </Button>
 
-        <Modal dimmer={dimmer} open={open} onClose={this.close} size="tiny">
-          <Modal.Header>{edit ? 'Edit a beer' : 'Add new beer'}</Modal.Header>
-          <Modal.Content>
+        <ModalComponent
+          dimmer={dimmer}
+          open={open}
+          onClose={this.close}
+          size="tiny"
+        >
+          <ModalComponent.Header>
+            {edit ? 'Edit a beer' : 'Add new beer'}
+          </ModalComponent.Header>
+          <ModalComponent.Content>
             <Form>
               <Form.Input fluid label="Brewery" placeholder="Brewery" />
 
@@ -62,8 +69,8 @@ class PrimaryModal extends Component {
                 <Rating />
               </Form.Field>
             </Form>
-          </Modal.Content>
-          <Modal.Actions>
+          </ModalComponent.Content>
+          <ModalComponent.Actions>
             <Button onClick={this.close} negative>
               Close
             </Button>
@@ -74,19 +81,19 @@ class PrimaryModal extends Component {
               icon="checkmark"
               content="Add item"
             />
-          </Modal.Actions>
-        </Modal>
+          </ModalComponent.Actions>
+        </ModalComponent>
       </>
     );
   }
 }
 
-PrimaryModal.propTypes = {
+Modal.propTypes = {
   edit: PropTypes.bool,
 };
 
-PrimaryModal.defaultProps = {
+Modal.defaultProps = {
   edit: false,
 };
 
-export default PrimaryModal;
+export default Modal;

@@ -1,14 +1,14 @@
 import React from 'react';
-import { Rating } from 'semantic-ui-react';
+import { Rating as RatingComponent } from 'semantic-ui-react';
 
-class Test extends React.Component {
+class Rating extends React.Component {
   CheckRating = (event, data) => {
     console.log(data.rating);
   };
 
   render() {
     return (
-      <Rating
+      <RatingComponent
         size="huge"
         icon="star"
         defaultRating={1}
@@ -18,4 +18,4 @@ class Test extends React.Component {
     );
   }
 }
-export default Test;
+export default Rating;
