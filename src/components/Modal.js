@@ -18,8 +18,8 @@ class Modal extends Component {
 
     return (
       <>
-        <Button onClick={this.show(true)} color="grey" basic={edit}>
-          {edit ? 'Edit' : 'Add new'}
+        <Button onClick={this.show(true)} color="green" basic={edit}>
+          {edit ? 'Edit' : '+'}
         </Button>
 
         <ModalComponent
