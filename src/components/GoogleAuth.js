@@ -1,11 +1,16 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Loader, Icon } from 'semantic-ui-react';
 
-class GoogleAuth extends Component {
-  state = { isSignedIn: null };
+const GoogleAuth = () => {
+  const [isSignedIn, setSign] = useState(null);
 
-  // Initialize gapi library
-  componentDidMount() {
+  let auth = null;
+
+  const onAuthChange = () => {
+    setSign(auth.isSignedIn.get());
+  };
+
+  useEffect(() => {
     window.gapi.load('client:auth2', async () => {
       await window.gapi.client.init({
         clientId:
@@ -13,27 +18,21 @@ class GoogleAuth extends Component {
         scope: 'email',
       });
 
-      this.auth = window.gapi.auth2.getAuthInstance();
-      this.setState({ isSignedIn: this.auth.isSignedIn.get() });
-      this.auth.isSignedIn.listen(this.onAuthChange);
+      auth = window.gapi.auth2.getAuthInstance();
+      setSign(auth.isSignedIn.get());
+      auth.isSignedIn.listen(onAuthChange);
     });
-  }
+  });
 
-  onSignIn = () => {
-    this.auth.signIn();
+  const onSignInClick = () => {
+    auth.signIn();
   };
 
-  onSignOut = () => {
-    this.auth.signOut();
+  const onSignOutClick = () => {
+    auth.signOut();
   };
 
-  onAuthChange = () => {
-    this.setState({ isSignedIn: this.auth.isSignedIn.get() });
-  };
-
-  renderAuth() {
-    const { isSignedIn } = this.state;
-
+  function renderAuth() {
     if (isSignedIn === null) {
       return (
         <Button icon labelPosition="right" color="red">
@@ -44,23 +43,21 @@ class GoogleAuth extends Component {
     }
     if (isSignedIn) {
       return (
-        <Button onClick={this.onSignOut} icon labelPosition="right" color="red">
+        <Button onClick={onSignOutClick} icon labelPosition="right" color="red">
           Sign Out
           <Icon name="google" />
         </Button>
       );
     }
     return (
-      <Button onClick={this.onSignIn} icon labelPosition="right" color="red">
+      <Button onClick={onSignInClick} icon labelPosition="right" color="red">
         Sign In
         <Icon name="google" />
       </Button>
     );
   }
 
-  render() {
-    return this.renderAuth();
-  }
-}
+  return renderAuth();
+};
 
 export default GoogleAuth;
