@@ -9,7 +9,7 @@ const GoogleAuth = ({ isSignedIn, signIn, signOut }) => {
 
   const onAuthChange = (signStatus) => {
     if (signStatus) {
-      signIn();
+      signIn(auth.currentUser.get().getId());
     } else {
       signOut();
     }

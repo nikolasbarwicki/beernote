@@ -1,9 +1,10 @@
 import { SIGN_IN, SIGN_OUT } from 'actions/types';
 
 /* eslint-disable import/prefer-default-export */
-export const signIn = () => {
+export const signIn = (userId) => {
   return {
     type: SIGN_IN,
+    payload: userId,
   };
 };
 
