@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { signIn, signOut } from 'actions';
+
 import { Button, Loader, Icon } from 'semantic-ui-react';
 
-const GoogleAuth = () => {
-  const [isSignedIn, setSign] = useState(null);
-
+const GoogleAuth = ({ isSignedIn, signIn, signOut }) => {
   let auth = null;
 
-  const onAuthChange = () => {
-    setSign(auth.isSignedIn.get());
+  const onAuthChange = (signStatus) => {
+    if (signStatus) {
+      signIn();
+    } else {
+      signOut();
+    }
   };
 
   useEffect(() => {
@@ -19,7 +24,7 @@ const GoogleAuth = () => {
       });
 
       auth = window.gapi.auth2.getAuthInstance();
-      setSign(auth.isSignedIn.get());
+      onAuthChange(auth.isSignedIn.get());
       auth.isSignedIn.listen(onAuthChange);
     });
   });
@@ -32,7 +37,7 @@ const GoogleAuth = () => {
     auth.signOut();
   };
 
-  function renderAuth() {
+  function renderAuthButton() {
     if (isSignedIn === null) {
       return (
         <Button icon labelPosition="right" color="red">
@@ -57,7 +62,11 @@ const GoogleAuth = () => {
     );
   }
 
-  return renderAuth();
+  return renderAuthButton();
 };
 
-export default GoogleAuth;
+const mapStateToProps = (state) => {
+  return { isSignedIn: state.auth.isSignedIn };
+};
+
+export default connect(mapStateToProps, { signIn, signOut })(GoogleAuth);
