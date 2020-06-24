@@ -1,12 +1,19 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import Dropdown from 'components/Dropdown';
 import Rating from 'components/Rating';
 import { Button, Modal as ModalComponent, Form } from 'semantic-ui-react';
+import StringInput from 'components/FormInput';
 
 class Modal extends Component {
   state = { open: false };
+
+  onSubmit = (formValues) => {
+    // eslint-disable-next-line no-console
+    console.log(formValues);
+  };
 
   show = (dimmer) => () => this.setState({ dimmer, open: true });
 
@@ -14,7 +21,7 @@ class Modal extends Component {
 
   render() {
     const { open, dimmer } = this.state;
-    const { edit } = this.props;
+    const { edit, handleSubmit, reset } = this.props;
 
     return (
       <>
@@ -32,56 +39,51 @@ class Modal extends Component {
             {edit ? 'Edit a beer' : 'Add new beer'}
           </ModalComponent.Header>
           <ModalComponent.Content>
-            <Form>
-              <Form.Input fluid label="Brewery" placeholder="Brewery" />
+            <Form onSubmit={handleSubmit(this.onSubmit)}>
+              <Field
+                component={Form.Input}
+                label="Brewery"
+                name="brewery"
+                placeholder="Brewery"
+              />
+              <Field component={Dropdown} name="country" label="Country" />
 
-              <Form.Field>
-                <label>Country</label>
-                <Dropdown />
-              </Form.Field>
-
-              <Form.Input fluid label="Name" placeholder="Name" />
-              <Form.Input fluid label="Style" placeholder="Style" />
+              <Field component={StringInput} name="name" label="Name" />
+              <Field component={StringInput} name="style" label="Style" />
 
               <Form.Group widths="equal">
-                <Form.Input
+                <Field
+                  component={StringInput}
+                  name="abv"
                   label="ABV"
                   type="number"
                   min="0"
                   max="100"
                   step="0.1"
                   fluid
-                  placeholder="ABV"
                 />
 
-                <Form.Input
+                <Field
+                  component={StringInput}
+                  name="ibu"
                   label="IBU"
                   type="number"
                   min="0"
                   max="1000"
                   step="1"
                   fluid
-                  placeholder="IBU"
                 />
               </Form.Group>
-              <Form.Field>
-                <label>Your rating</label>
-                <Rating />
-              </Form.Field>
+
+              <Field component={Rating} name="rating" label="Rating" />
+
+              <Form.Group inline>
+                <Form.Button primary>Submit</Form.Button>
+                <Form.Button onClick={reset}>Reset</Form.Button>
+              </Form.Group>
             </Form>
           </ModalComponent.Content>
-          <ModalComponent.Actions>
-            <Button onClick={this.close} negative>
-              Close
-            </Button>
-            <Button
-              onClick={this.close}
-              positive
-              labelPosition="right"
-              icon="checkmark"
-              content="Add item"
-            />
-          </ModalComponent.Actions>
+          <ModalComponent.Actions />
         </ModalComponent>
       </>
     );
@@ -90,10 +92,14 @@ class Modal extends Component {
 
 Modal.propTypes = {
   edit: PropTypes.bool,
+  reset: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 Modal.defaultProps = {
   edit: false,
 };
 
-export default Modal;
+export default reduxForm({
+  form: 'addBeerModal',
+})(Modal);
