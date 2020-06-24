@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
 
-const FormInput = ({ label, input, type, min, max, step, fluid }) => {
+const FormInput = ({ label, input, type, min, max, step, fluid, meta }) => {
   return (
     <Form.Field>
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label>{label}</label>
       <Form.Input
+        error={meta.touched && meta.error ? meta.error : null}
         {...input}
         value={input.value}
         onChange={(param, data) => input.onChange(data.value)}
@@ -17,6 +18,7 @@ const FormInput = ({ label, input, type, min, max, step, fluid }) => {
         max={max}
         step={step}
         fluid={fluid}
+        autoComplete="off"
       />
     </Form.Field>
   );
@@ -33,15 +35,15 @@ FormInput.propTypes = {
     onFocus: PropTypes.func,
     value: PropTypes.string,
   }).isRequired,
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
   min: PropTypes.string,
   max: PropTypes.string,
   step: PropTypes.string,
   fluid: PropTypes.bool,
+  meta: PropTypes.shape.isRequired,
 };
 
 FormInput.defaultProps = {
-  type: 'string',
   min: null,
   max: null,
   step: null,

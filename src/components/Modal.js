@@ -41,7 +41,7 @@ class Modal extends Component {
           <ModalComponent.Content>
             <Form onSubmit={handleSubmit(this.onSubmit)}>
               <Field
-                component={Form.Input}
+                component={StringInput}
                 label="Brewery"
                 name="brewery"
                 placeholder="Brewery"
@@ -90,6 +90,31 @@ class Modal extends Component {
   }
 }
 
+const validate = (formValues) => {
+  const errors = {};
+
+  if (!formValues.brewery) {
+    errors.brewery = 'You must enter a brewery';
+  }
+  if (!formValues.country) {
+    errors.country = 'You must enter a country';
+  }
+  if (!formValues.name) {
+    errors.name = 'You must enter a name';
+  }
+  if (!formValues.style) {
+    errors.style = 'You must enter a style';
+  }
+  if (!formValues.abv) {
+    errors.abv = 'You must enter a abv';
+  }
+  if (!formValues.ibu) {
+    errors.ibu = 'You must enter a ibu';
+  }
+
+  return errors;
+};
+
 Modal.propTypes = {
   edit: PropTypes.bool,
   reset: PropTypes.func.isRequired,
@@ -102,4 +127,5 @@ Modal.defaultProps = {
 
 export default reduxForm({
   form: 'addBeerModal',
+  validate,
 })(Modal);

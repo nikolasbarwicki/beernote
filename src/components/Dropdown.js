@@ -31,6 +31,7 @@ Dropdown.propTypes = {
     onFocus: PropTypes.func,
     value: PropTypes.string,
   }).isRequired,
+  meta: PropTypes.shape.isRequired,
 };
 
 export default Dropdown;
