@@ -1,24 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, Icon, List, Flag, Grid, Rating } from 'semantic-ui-react';
 import Modal from 'components/Modal';
 import ConfirmModal from 'components/ConfirmModal';
 
-const CardItem = () => (
+const CardItem = ({ abv, brewery, country, ibu, name, rating, style }) => (
   <Grid.Column>
     <Card centered>
       <Card.Content>
-        <Card.Header>Salamander Strawberry</Card.Header>
-        <Card.Description>IPA - Milkshake</Card.Description>
+        <Card.Header>{name}</Card.Header>
+        <Card.Description>{style}</Card.Description>
       </Card.Content>
       <Card.Content>
         <List>
           <List.Item>
             <List.Icon name="point" verticalAlign="middle" color="grey" />
             <List.Content>
-              <List.Header>Browar Stu Mostów</List.Header>
+              <List.Header>{brewery}</List.Header>
               <List.Description>
                 <Flag name="pl" />
-                Poland
+                {country}
               </List.Description>
             </List.Content>
           </List.Item>
@@ -37,7 +38,7 @@ const CardItem = () => (
                   />
                   <List.Content>
                     <List.Header>ABV</List.Header>
-                    <List.Description>5.9%</List.Description>
+                    <List.Description>{abv}%</List.Description>
                   </List.Content>
                 </List.Item>
               </List>
@@ -52,7 +53,7 @@ const CardItem = () => (
                   />
                   <List.Content>
                     <List.Header>IBU</List.Header>
-                    <List.Description>50</List.Description>
+                    <List.Description>{ibu}</List.Description>
                   </List.Content>
                 </List.Item>
               </List>
@@ -62,7 +63,7 @@ const CardItem = () => (
       </Card.Content>
       <Card.Content>
         <Rating
-          defaultRating={3}
+          defaultRating={rating}
           maxRating={5}
           disabled
           icon="star"
@@ -88,5 +89,17 @@ const CardItem = () => (
     </Card>
   </Grid.Column>
 );
+
+CardItem.propTypes = {
+  abv: PropTypes.string.isRequired,
+  brewery: PropTypes.string.isRequired,
+  country: PropTypes.string.isRequired,
+  ibu: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired,
+  style: PropTypes.string.isRequired,
+};
+
+CardItem.defaultProps = {};
 
 export default CardItem;
