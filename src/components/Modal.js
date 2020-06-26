@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { createBeer } from 'actions';
 import PropTypes from 'prop-types';
 import Dropdown from 'components/Dropdown';
 import Rating from 'components/Rating';
@@ -11,8 +13,9 @@ class Modal extends Component {
   state = { open: false };
 
   onSubmit = (formValues) => {
-    // eslint-disable-next-line no-console
-    console.log(formValues);
+    const { createBeer } = this.props;
+
+    createBeer(formValues);
   };
 
   show = (dimmer) => () => this.setState({ dimmer, open: true });
@@ -119,13 +122,16 @@ Modal.propTypes = {
   edit: PropTypes.bool,
   reset: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  createBeer: PropTypes.func.isRequired,
 };
 
 Modal.defaultProps = {
   edit: false,
 };
 
-export default reduxForm({
+const formWrapped = reduxForm({
   form: 'addBeerModal',
   validate,
 })(Modal);
+
+export default connect(null, { createBeer })(formWrapped);
