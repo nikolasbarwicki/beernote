@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { createBeer } from 'actions';
+import { createBeer, fetchBeers } from 'actions';
 import PropTypes from 'prop-types';
 import Dropdown from 'components/Dropdown';
 import Rating from 'components/Rating';
@@ -12,10 +12,12 @@ import StringInput from 'components/FormInput';
 class Modal extends Component {
   state = { open: false };
 
-  onSubmit = (formValues) => {
-    const { createBeer } = this.props;
+  onSubmit = async (formValues) => {
+    const { createBeer, fetchBeers } = this.props;
 
-    createBeer(formValues);
+    await createBeer(formValues);
+    fetchBeers();
+    this.setState({ open: false });
   };
 
   show = (dimmer) => () => this.setState({ dimmer, open: true });
@@ -123,6 +125,7 @@ Modal.propTypes = {
   reset: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   createBeer: PropTypes.func.isRequired,
+  fetchBeers: PropTypes.func.isRequired,
 };
 
 Modal.defaultProps = {
@@ -134,4 +137,4 @@ const formWrapped = reduxForm({
   validate,
 })(Modal);
 
-export default connect(null, { createBeer })(formWrapped);
+export default connect(null, { createBeer, fetchBeers })(formWrapped);

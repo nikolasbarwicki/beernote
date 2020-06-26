@@ -36,7 +36,7 @@ export const createBeer = (formValues) => async (dispatch) => {
 export const fetchBeers = () => async (dispatch) => {
   const response = await beers.get('/api/v1/beers/');
 
-  dispatch({ type: FETCH_BEERS, payload: response.data });
+  dispatch({ type: FETCH_BEERS, payload: Object.values(response.data.data) });
 };
 
 export const fetchBeer = (id) => async (dispatch) => {

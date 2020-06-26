@@ -4,7 +4,7 @@ import { Card, Icon, List, Flag, Grid, Rating } from 'semantic-ui-react';
 import Modal from 'components/Modal';
 import ConfirmModal from 'components/ConfirmModal';
 
-const CardItem = ({ abv, brewery, country, ibu, name, rating, style }) => (
+const CardItem = ({ abv, brewery, country, ibu, name, rating, style, id }) => (
   <Grid.Column>
     <Card centered>
       <Card.Content>
@@ -18,7 +18,7 @@ const CardItem = ({ abv, brewery, country, ibu, name, rating, style }) => (
             <List.Content>
               <List.Header>{brewery}</List.Header>
               <List.Description>
-                <Flag name="pl" />
+                <Flag name={country} />
                 {country}
               </List.Description>
             </List.Content>
@@ -83,7 +83,7 @@ const CardItem = ({ abv, brewery, country, ibu, name, rating, style }) => (
       <Card.Content extra>
         <div className="ui two buttons">
           <Modal edit />
-          <ConfirmModal />
+          <ConfirmModal id={id} />
         </div>
       </Card.Content>
     </Card>
@@ -98,6 +98,7 @@ CardItem.propTypes = {
   name: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
   style: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 CardItem.defaultProps = {};

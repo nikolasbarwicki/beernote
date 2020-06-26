@@ -8,7 +8,7 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case FETCH_BEERS:
-      return { ...state, ...action.payload };
+      return { ...state, data: action.payload };
     case FETCH_BEER:
       return { ...state, ...action.payload };
     case CREATE_BEER:
