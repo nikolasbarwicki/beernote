@@ -10,7 +10,7 @@ export default (state = {}, action) => {
     case FETCH_BEERS:
       return { ...state, data: action.payload };
     case FETCH_BEER:
-      return { ...state, ...action.payload };
+      return { ...state, editBeer: action.payload.data };
     case CREATE_BEER:
       return { ...state, [action.payload]: action.payload };
     case UPDATE_BEER:

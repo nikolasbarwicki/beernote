@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Icon, List, Flag, Grid, Rating } from 'semantic-ui-react';
-import Modal from 'components/Modal';
+import EditModal from 'components/EditModal';
 import ConfirmModal from 'components/ConfirmModal';
 
 const CardItem = ({ abv, brewery, country, ibu, name, rating, style, id }) => (
@@ -82,7 +82,7 @@ const CardItem = ({ abv, brewery, country, ibu, name, rating, style, id }) => (
       </Card.Content>
       <Card.Content extra>
         <div className="ui two buttons">
-          <Modal edit />
+          <EditModal id={id} edit />
           <ConfirmModal id={id} />
         </div>
       </Card.Content>
