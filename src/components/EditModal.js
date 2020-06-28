@@ -13,8 +13,8 @@ class EditModal extends Component {
   state = { open: false };
 
   // NOT WORKING PROPERLY YET!
-  onSubmit = async (id, formValues) => {
-    const { updateBeer, fetchBeers } = this.props;
+  onSubmit = async (formValues) => {
+    const { updateBeer, fetchBeers, id } = this.props;
 
     await updateBeer(id, formValues);
 
