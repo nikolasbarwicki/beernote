@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, Icon, List, Flag, Grid, Rating } from 'semantic-ui-react';
 import EditModal from 'components/EditModal';
 import ConfirmModal from 'components/ConfirmModal';
+import countryOptions from 'utils/countryOptions';
 
 const CardItem = ({ abv, brewery, country, ibu, name, rating, style, id }) => (
   <Grid.Column>
@@ -19,7 +20,7 @@ const CardItem = ({ abv, brewery, country, ibu, name, rating, style, id }) => (
               <List.Header>{brewery}</List.Header>
               <List.Description>
                 <Flag name={country} />
-                {country}
+                {countryOptions.find((el) => el.key === country).text}
               </List.Description>
             </List.Content>
           </List.Item>
