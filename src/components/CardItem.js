@@ -1,11 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Icon, List, Flag, Grid, Rating } from 'semantic-ui-react';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+
 import EditModal from 'components/EditModal';
 import ConfirmModal from 'components/ConfirmModal';
 import countryOptions from 'utils/countryOptions';
 
-const CardItem = ({ abv, brewery, country, ibu, name, rating, style, id }) => (
+const CardItem = ({
+  abv,
+  brewery,
+  country,
+  ibu,
+  name,
+  rating,
+  style,
+  id,
+  date,
+}) => (
   <Grid.Column>
     <Card centered>
       <Card.Content>
@@ -76,7 +88,9 @@ const CardItem = ({ abv, brewery, country, ibu, name, rating, style, id }) => (
           <List.Item>
             <Icon name="calendar" color="grey" />
             <List.Content>
-              <List.Description>3 days ago</List.Description>
+              <List.Description>
+                {formatDistanceToNow(new Date(date))}
+              </List.Description>
             </List.Content>
           </List.Item>
         </List>
@@ -100,6 +114,7 @@ CardItem.propTypes = {
   rating: PropTypes.number.isRequired,
   style: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired,
 };
 
 CardItem.defaultProps = {};

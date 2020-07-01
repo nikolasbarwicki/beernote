@@ -34,6 +34,7 @@ const App = ({ beers, fetchBeers }) => {
                   style={beer.style}
                   // eslint-disable-next-line no-underscore-dangle
                   id={beer._id}
+                  date={beer.createdAt}
                 />
               );
             })
