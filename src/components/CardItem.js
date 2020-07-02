@@ -98,7 +98,7 @@ const CardItem = ({
       <Card.Content extra>
         <div className="ui two buttons">
           <EditModal id={id} edit />
-          <ConfirmModal id={id} />
+          <ConfirmModal id={id} name={name} />
         </div>
       </Card.Content>
     </Card>

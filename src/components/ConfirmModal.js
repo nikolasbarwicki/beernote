@@ -9,17 +9,21 @@ class ConfirmModal extends Component {
 
   open = () => this.setState({ open: true });
 
-  close = async () => {
+  close = () => {
+    this.setState({ open: false });
+  };
+
+  delete = async () => {
     const { deleteBeer, fetchBeers, id } = this.props;
 
     await deleteBeer(id);
     fetchBeers();
-    this.setState({ open: false });
+    this.close();
   };
 
   render() {
     const { open } = this.state;
-    const { id } = this.props;
+    const { name } = this.props;
 
     return (
       <>
@@ -29,9 +33,9 @@ class ConfirmModal extends Component {
         <Confirm
           size="mini"
           open={open}
-          content={`Do you want to delete beer with id: ${id}`}
+          content={`Do you want to delete ${name} from your entries?`}
           onCancel={this.close}
-          onConfirm={this.close}
+          onConfirm={this.delete}
           confirmButton="Delete"
         />
       </>
@@ -43,6 +47,7 @@ ConfirmModal.propTypes = {
   fetchBeers: PropTypes.func.isRequired,
   deleteBeer: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 ConfirmModal.defaultProps = {};
