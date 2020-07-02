@@ -1,11 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Card, Icon, List, Flag, Grid, Rating } from 'semantic-ui-react';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 import EditModal from 'components/EditModal';
 import ConfirmModal from 'components/ConfirmModal';
 import countryOptions from 'utils/countryOptions';
+
+const renderEditButtons = (userId, currentUserId, id, name) => {
+  if (userId === currentUserId) {
+    return (
+      <div className="ui two buttons">
+        <EditModal id={id} edit />
+        <ConfirmModal id={id} name={name} />
+      </div>
+    );
+  }
+  return null;
+};
 
 const CardItem = ({
   abv,
@@ -16,12 +29,14 @@ const CardItem = ({
   rating,
   style,
   id,
+  userId,
   date,
+  currentUserId,
 }) => (
   <Grid.Column>
     <Card centered>
       <Card.Content>
-        <Card.Header>{name}</Card.Header>
+        <Card.Header extra>{name}</Card.Header>
         <Card.Description>{style}</Card.Description>
       </Card.Content>
       <Card.Content>
@@ -95,11 +110,8 @@ const CardItem = ({
           </List.Item>
         </List>
       </Card.Content>
-      <Card.Content extra>
-        <div className="ui two buttons">
-          <EditModal id={id} edit />
-          <ConfirmModal id={id} name={name} />
-        </div>
+      <Card.Content extra style={{ height: '15%' }}>
+        {renderEditButtons(userId, currentUserId, id, name)}
       </Card.Content>
     </Card>
   </Grid.Column>
@@ -114,9 +126,15 @@ CardItem.propTypes = {
   rating: PropTypes.number.isRequired,
   style: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
+  currentUserId: PropTypes.string.isRequired,
   date: PropTypes.instanceOf(Date).isRequired,
 };
 
 CardItem.defaultProps = {};
 
-export default CardItem;
+const mapStateToProps = (state) => {
+  return { currentUserId: state.auth.userId };
+};
+
+export default connect(mapStateToProps, null)(CardItem);

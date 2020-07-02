@@ -23,12 +23,17 @@ export const signOut = () => {
   };
 };
 
-export const createBeer = (formValues) => async (dispatch) => {
-  const response = await beers.post('/api/v1/beers/', formValues, {
-    headers: {
-      'Content-Type': 'application/json',
+export const createBeer = (formValues) => async (dispatch, getState) => {
+  const { userId } = getState().auth;
+  const response = await beers.post(
+    '/api/v1/beers/',
+    { ...formValues, userId },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
-  });
+  );
 
   dispatch({ type: CREATE_BEER, payload: response.data });
 };
