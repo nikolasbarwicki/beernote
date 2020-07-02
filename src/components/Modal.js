@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { createBeer, fetchBeers } from 'actions';
 import PropTypes from 'prop-types';
@@ -12,10 +12,13 @@ import StringInput from 'components/FormInput';
 class Modal extends Component {
   state = { open: false };
 
-  onSubmit = async (formValues) => {
+  onSubmit = async (formValues, dispatch) => {
     const { createBeer, fetchBeers } = this.props;
 
     await createBeer(formValues);
+
+    dispatch(reset('addBeerModal'));
+
     fetchBeers();
     this.setState({ open: false });
   };
