@@ -22,7 +22,7 @@ const GoogleAuth = ({ isSignedIn, signIn, signOut }) => {
           '500433830089-j2n75v25j0aqeaq20e6mmis5etn5nu4c.apps.googleusercontent.com',
         scope: 'email',
       });
-
+      // eslint-disable-next-line
       auth = window.gapi.auth2.getAuthInstance();
       onAuthChange(auth.isSignedIn.get());
       auth.isSignedIn.listen(onAuthChange);

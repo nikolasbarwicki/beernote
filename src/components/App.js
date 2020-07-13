@@ -10,12 +10,12 @@ import { Grid, Container, Loader } from 'semantic-ui-react';
 const App = ({ beers, fetchBeers }) => {
   useEffect(() => {
     fetchBeers();
-  }, []);
+  }, [fetchBeers]);
 
   return (
     <>
       <Header />
-      <Container content style={{ marginTop: 70 }}>
+      <Container style={{ marginTop: 70 }}>
         <Grid columns="4" stackable stretched>
           {beers.length === 0 ? (
             <Loader active size="huge" />

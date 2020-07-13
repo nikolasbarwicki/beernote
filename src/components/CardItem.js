@@ -36,7 +36,7 @@ const CardItem = ({
   <Grid.Column>
     <Card centered>
       <Card.Content>
-        <Card.Header extra>{name}</Card.Header>
+        <Card.Header>{name}</Card.Header>
         <Card.Description>{style}</Card.Description>
       </Card.Content>
       <Card.Content>
@@ -110,7 +110,7 @@ const CardItem = ({
           </List.Item>
         </List>
       </Card.Content>
-      <Card.Content extra style={{ height: '15%' }}>
+      <Card.Content style={{ height: '15%' }}>
         {renderEditButtons(userId, currentUserId, id, name)}
       </Card.Content>
     </Card>
@@ -127,11 +127,13 @@ CardItem.propTypes = {
   style: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
-  currentUserId: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
+  currentUserId: PropTypes.string,
+  date: PropTypes.string.isRequired,
 };
 
-CardItem.defaultProps = {};
+CardItem.defaultProps = {
+  currentUserId: null,
+};
 
 const mapStateToProps = (state) => {
   return { currentUserId: state.auth.userId };
